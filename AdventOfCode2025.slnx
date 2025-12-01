@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="AoCToolbox/AoCToolbox.csproj" />
+  <Project Path="Day1/Day1.csproj" />
+</Solution>
