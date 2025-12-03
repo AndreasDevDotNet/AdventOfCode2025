@@ -46,4 +46,6 @@ public static class NumberExtensions
     {
         return Math.Abs(number - Math.Round(number)) < double.Epsilon;
     }
+
+    
 }

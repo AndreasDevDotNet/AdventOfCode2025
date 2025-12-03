@@ -309,4 +309,80 @@ public static class ListExtenstions
 
         return result;
     }
+
+    public static long GetLargestTwoDigitsInOrder(this IList<int> input)
+    {
+        return input.GetLargestNDigitsInOrder(2);
+    }
+
+    public static long GetLargestNDigitsInOrder(this IList<int> input, int n)
+    {
+        if (input.Count < n)
+        {
+            throw new ArgumentException($"Input must contain at least {n} elements.");
+        }
+
+        foreach (var digit in input)
+        {
+            if (digit < 0 || digit > 9)
+            {
+                throw new ArgumentException("All elements in the input list must be single-digit integers (0-9).");
+            }
+        }
+
+        // Greedy algorithm: use a stack to build the largest number
+        var stack = new List<int>();
+        int toRemove = input.Count - n; // Number of digits we need to skip
+
+        for (int i = 0; i < input.Count; i++)
+        {
+            // Remove smaller digits from the stack if we can still afford to remove them
+            while (stack.Count > 0 && stack[stack.Count - 1] < input[i] && toRemove > 0)
+            {
+                stack.RemoveAt(stack.Count - 1);
+                toRemove--;
+            }
+            stack.Add(input[i]);
+        }
+
+        // If we still need to remove digits, remove from the end
+        while (stack.Count > n)
+        {
+            stack.RemoveAt(stack.Count - 1);
+        }
+
+        // Convert the result to a long
+        long result = 0;
+        for (int i = 0; i < n; i++)
+        {
+            result = result * 10 + stack[i];
+        }
+
+        return result;
+    }
+
+    private static IEnumerable<List<int>> GetCombinations(int n, int k)
+    {
+        var result = new List<int>();
+        return GetCombinationsRecursive(0, n, k, result);
+
+        static IEnumerable<List<int>> GetCombinationsRecursive(int start, int n, int k, List<int> current)
+        {
+            if (current.Count == k)
+            {
+                yield return new List<int>(current);
+                yield break;
+            }
+
+            for (int i = start; i < n; i++)
+            {
+                current.Add(i);
+                foreach (var combination in GetCombinationsRecursive(i + 1, n, k, current))
+                {
+                    yield return combination;
+                }
+                current.RemoveAt(current.Count - 1);
+            }
+        }
+    }
 }

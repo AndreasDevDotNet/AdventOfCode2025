@@ -2,5 +2,6 @@
   <Project Path="AoCToolbox/AoCToolbox.csproj" />
   <Project Path="Day1/Day1.csproj" />
   <Project Path="Day2/Day2.csproj" />
+  <Project Path="Day3/Day3.csproj" />
   <Project Path="Scratchpad/Scratchpad.csproj" />
 </Solution>
