@@ -361,6 +361,16 @@ public static class ListExtenstions
         return result;
     }
 
+    public static long Multiply<T>(this IEnumerable<T> source)
+    {
+        long product = 1;
+        foreach (var item in source)
+        {
+            product *= Convert.ToInt64(item);
+        }
+        return product;
+    }
+
     private static IEnumerable<List<int>> GetCombinations(int n, int k)
     {
         var result = new List<int>();
