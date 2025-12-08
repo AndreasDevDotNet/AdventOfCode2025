@@ -59,6 +59,7 @@ namespace AoCToolbox
             {
                 Metric.Chebyshev => ChebyshevDistance(a, b),
                 Metric.Taxicab => TaxicabDistance(a, b),
+                Metric.Euclidean => (int)EuclideanDistance(a, b),  
                 _ => throw new ArgumentOutOfRangeException(nameof(metric), metric, null)
             };
         }
@@ -175,6 +176,15 @@ namespace AoCToolbox
             var dz = Math.Abs(a.Z - b.Z);
 
             return dx + dy + dz;
+        }
+
+        public static double EuclideanDistance(Vector3D a, Vector3D b)
+        {
+            var dx = (double)(a.X - b.X);
+            var dy = (double)(a.Y - b.Y);
+            var dz = (double)(a.Z - b.Z);
+
+            return Math.Sqrt(dx * dx + dy * dy + dz * dz);
         }
     }
 }
